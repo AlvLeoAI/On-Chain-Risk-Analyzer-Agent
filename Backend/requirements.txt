@@ -1,0 +1,16 @@
+fastapi>=0.111.0
+uvicorn[standard]>=0.30.0
+gunicorn>=22.0.0
+sqlalchemy>=2.0.30
+asyncpg>=0.29.0
+psycopg2-binary>=2.9.9
+pgvector>=0.3.0
+alembic>=1.13.1
+pydantic>=2.7.1
+pydantic-settings>=2.2.1
+python-dotenv>=1.0.1
+google-genai>=0.5.0
+web3>=6.0.0
+fpdf2>=2.7.0
+eth-utils>=2.0.0
+pytest>=8.2.0

@@ -1,0 +1,4 @@
+{
+  "session_id": "case-03-vuln-lending",
+  "document_text": "Project: YieldFlow\nChain: Arbitrum\nCategory: Lending\n\nOverview\nYieldFlow is an open-source lending market. It is controlled by a multisig, not a single admin key.\n\nTokenomics\nToken: YF\nSupply: 50,000,000\nTeam allocation: 15%\nLiquidity is locked. No mint function.\n\nSecurity\nThe protocol has a Pending audit from CertiK. During preliminary reviews, a High severity vulnerability regarding flash loan price manipulation was identified, and it has NOT yet been mitigated."
+}

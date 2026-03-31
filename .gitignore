@@ -1,0 +1,49 @@
+# --- Private assistant context ---
+AGENTS.md
+GEMINI.md
+CLAUDE.md
+**/AGENTS.md
+**/GEMINI.md
+**/CLAUDE.md
+
+# --- Editor / OS files ---
+.vscode/
+.DS_Store
+Thumbs.db
+
+# --- Python caches ---
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.coverage
+**/coverage/
+
+# --- Local environments and secrets ---
+**/.env
+**/.env.*
+**/.venv/
+**/venv/
+**/env/
+**/ENV/
+**/*.pem
+**/*.key
+**/*.crt
+**/*.pfx
+**/.streamlit/secrets.toml
+**/.streamlit/**/secrets.toml
+
+# --- IDE files ---
+.idea/
+
+# --- Claude Code local settings ---
+.claude/
+
+# --- Audit / internal notes ---
+AUDIT_REPORT.md
+
+# --- SQLite databases ---
+*.db
+
+# --- Temporary files ---
+**/*.log
+**/.cache/

@@ -1,0 +1,10 @@
+{
+  "case_name": "ZenithSwap Test",
+  "document_text": "Project: ZenithSwap\nChain: Ethereum\nCategory: DEX\n\nOverview\nZenithSwap is an open-source decentralized exchange. The code has been fully audited by Trail of Bits and is governed by a DAO (no admin key).\n\nTokenomics\nToken: ZEN\nTotal Supply: 100,000,000\nTeam Allocation: 10%\nLiquidity: Locked for 5 years.\nNo mint function exists.\n\nSecurity\nNo vulnerabilities were found during the audit.",
+  "expected_profile": {
+    "project_name": "ZenithSwap",
+    "chain": "Ethereum",
+    "category": "DEX",
+    "audit_status": "Audited"
+  }
+}

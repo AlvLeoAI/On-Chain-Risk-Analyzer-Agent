@@ -1,0 +1,4 @@
+-- 
+-- Placeholder for manual raw SQL migrations if needed.
+-- Note: We primarily use Alembic (see /Backend/alembic/) for schema migrations.
+--

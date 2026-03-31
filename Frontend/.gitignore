@@ -1,0 +1,39 @@
+# ---- PYTHON ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# ---- ENVIRONMENTS ----
+env/
+venv/
+.venv/
+ENV/
+.ENV/
+.env
+.env.*
+
+# ---- STREAMLIT ----
+.streamlit/secrets.toml
+.streamlit/**/secrets.toml
+
+# ---- EDITOR FILES ----
+.DS_Store
+.idea/
+.vscode/
+
+# ---- LOGS ----
+*.log
+
+# ---- SWAP FILES ----
+*.swp
+*.swo
+
+# ---- CACHE ----
+.cache/
+
+# --- AI assistant context files ---
+AGENTS.md
+GEMINI.md
+**/AGENTS.md
+**/GEMINI.md
