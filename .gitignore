@@ -47,3 +47,6 @@ AUDIT_REPORT.md
 # --- Temporary files ---
 **/*.log
 **/.cache/
+
+# --- Spec-driven kit ---
+.specify/
