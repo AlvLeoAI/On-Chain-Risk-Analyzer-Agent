@@ -10,6 +10,13 @@ try:
 except ImportError:  # pragma: no cover - depends on local environment
     genai = None
 
+try:
+    from google.api_core.exceptions import GoogleAPIError
+except ImportError:  # pragma: no cover - depends on local environment
+    class GoogleAPIError(Exception):  # type: ignore[no-redef]
+        """Fallback when google-api-core is not installed."""
+        pass
+
 logger = logging.getLogger(__name__)
 
 
@@ -84,8 +91,15 @@ GUIDELINES:
 User Question:
 {question}"""
 
+    # Initialize the client defensively. A missing key or provider import failure
+    # should not propagate as an unhandled exception to the API layer.
     try:
         client = _get_client()
+    except Exception as e:
+        logger.error("Failed to initialize Gemini client for chat: %s", e)
+        return "I'm sorry, the chat service is not available right now. Please try again later."
+
+    try:
         response = await client.aio.models.generate_content(
             model='gemini-2.5-flash',
             contents=[
@@ -98,6 +112,10 @@ User Question:
         )
         await track_gemini_usage(response)
         return response.text
+    except GoogleAPIError as e:
+        # Gemini-side failures: rate limits, quota, transient server errors, bad requests.
+        logger.error("Gemini API error during chat (%s): %s", type(e).__name__, e, exc_info=True)
+        return "I'm sorry, the analysis service is temporarily unavailable. Please try your question again in a moment."
     except Exception as e:
-        logger.error(f"Error during agent chat: {e}")
-        return "Sorry, I encountered an error while trying to answer your question."
+        logger.error("Chat generation failed (%s): %s", type(e).__name__, e, exc_info=True)
+        return "I'm sorry, I encountered an error processing your question. Please try again."

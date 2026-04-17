@@ -28,9 +28,13 @@ class BlockchainService:
 
     def extract_addresses(self, text: str) -> Dict[str, List[str]]:
         """Extracts EVM and Solana-like addresses from text."""
+        # NOTE: This is regex pattern matching on in-memory text, not a database query.
+        # Extracted addresses are validated with eth_utils.is_address() below before any
+        # downstream DB or RPC usage in verify_contract_status, so there is no injection
+        # surface here despite the visual similarity to query construction.
         evm_addresses = list(set(re.findall(EVM_ADDRESS_REGEX, text)))
         sol_addresses = list(set(re.findall(SOLANA_ADDRESS_REGEX, text)))
-        
+
         # Filter EVM addresses using eth_utils for checksum/validity
         valid_evm = [addr for addr in evm_addresses if is_address(addr)]
         

@@ -68,8 +68,21 @@ RULES:
 6. AUDIT STATUS - If the text explicitly mentions "audited by Certik/Consensys/etc.", mark as Audited. If no mention, mark Unaudited.
 """
 
+    # Initialize the Gemini client defensively. _get_client() can fail before any
+    # generation occurs (missing API key, library not installed, network init issues),
+    # so handle it explicitly and fall back to a degraded profile rather than raising.
     try:
         client = _get_client()
+    except Exception as e:
+        logger.error("Failed to initialize Gemini client: %s", e)
+        return ProjectProfile(
+            project_name="Unknown Project",
+            chain=ChainType.OTHER,
+            category=ProtocolCategory.OTHER,
+            audit_status=AuditStatus.UNAUDITED,
+        )
+
+    try:
         # Use the async gemini-2.5-flash model for fast, structured extraction
         response = await client.aio.models.generate_content(
             model='gemini-2.5-flash',
@@ -93,9 +106,12 @@ RULES:
             profile.project_name = "Unknown Project"
 
         return profile
-        
+
     except Exception as e:
-        logger.error(f"Extraction Error: {e}")
+        # Catch-all fallback: extraction must never raise. Network errors, schema
+        # validation failures, and provider exceptions all degrade to a stub profile
+        # so the rest of the analysis pipeline can continue.
+        logger.error("Extraction failed (%s): %s", type(e).__name__, e, exc_info=True)
         return ProjectProfile(
             project_name="Unknown Project",
             chain=ChainType.OTHER,
